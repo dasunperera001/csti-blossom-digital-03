@@ -28,7 +28,7 @@ const DestinationHighlightsSection = () => {
       roles: ["Mason", "Agricultural Worker"],
       deploymentTime: "30-45 days",
       slug: "israel",
-      coordinates: { x: 485, y: 225 }, // Tel Aviv area - adjust these based on your SVG
+      coordinates: { x: 885, y: 245 }, // Tel Aviv area - adjust these based on your SVG
       color: "hsl(var(--primary))"
     },
     {
@@ -38,7 +38,7 @@ const DestinationHighlightsSection = () => {
       roles: ["Construction Worker", "Hotel Staff"],
       deploymentTime: "35-50 days",
       slug: "gulf",
-      coordinates: { x: 515, y: 220 }, // Dubai/UAE area - adjust these based on your SVG
+      coordinates: { x: 960, y: 285 }, // Dubai/UAE area - adjust these based on your SVG
       color: "hsl(var(--secondary))"
     },
     {
@@ -48,13 +48,13 @@ const DestinationHighlightsSection = () => {
       roles: ["Farm Worker", "Technical Specialist"],
       deploymentTime: "45-60 days", 
       slug: "europe",
-      coordinates: { x: 410, y: 155 }, // Germany/Central Europe - adjust these based on your SVG
+      coordinates: { x: 775, y: 165 }, // Germany/Central Europe - adjust these based on your SVG
       color: "hsl(var(--primary-light))"
     }
   ];
 
   // Sri Lanka coordinates (origin) - adjust based on your SVG
-  const sriLankaCoords = { x: 580, y: 260 };
+  const sriLankaCoords = { x: 1080, y: 370 };
 
   // Generate curved path between two points
   const generateCurvedPath = (start: {x: number, y: number}, end: {x: number, y: number}) => {
@@ -82,7 +82,7 @@ const DestinationHighlightsSection = () => {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="mx-auto px-6 lg:px-8">
         <motion.div 
           className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
@@ -118,11 +118,11 @@ const DestinationHighlightsSection = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <figure className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
+          <figure className="bg-card rounded-2xl overflow-hidden max-h-[70vh]">
             <div className="aspect-[16/9] md:aspect-[16/9] sm:aspect-[4/3] relative">
               <svg
-                viewBox="0 0 800 500"
-                className="w-full h-full"
+                viewBox="0 0 1500 700"
+                className="w-full max-h-[70vh]"
                 role="img"
                 aria-labelledby="map-title"
               >
@@ -138,8 +138,8 @@ const DestinationHighlightsSection = () => {
                       stroke: "hsl(var(--border))",
                       strokeWidth: "0.5"
                     }}
-                    width="800" 
-                    height="500" 
+                    width="1500" 
+                    height="700" 
                   />
                 </g>
 
@@ -321,7 +321,7 @@ const DestinationHighlightsSection = () => {
                 {/* Legend */}
                 <g className="legend">
                   <rect
-                    x="600"
+                    x="1400"
                     y="20" 
                     width="180"
                     height="120"
@@ -332,7 +332,7 @@ const DestinationHighlightsSection = () => {
                     className="drop-shadow-sm"
                   />
                   <text
-                    x="690"
+                    x="1490"
                     y="45"
                     textAnchor="middle"
                     className="text-sm font-semibold fill-current text-card-foreground"
@@ -343,13 +343,13 @@ const DestinationHighlightsSection = () => {
                   {destinations.map((destination, index) => (
                     <g key={`legend-${destination.slug}`}>
                       <circle
-                        cx="620"
+                        cx="1420"
                         cy={70 + index * 22}
                         r="5"
                         fill={destination.color}
                       />
                       <text
-                        x="635"
+                        x="1435"
                         y={76 + index * 22}
                         className="text-xs fill-current text-card-foreground cursor-pointer"
                         role="button"
@@ -373,7 +373,7 @@ const DestinationHighlightsSection = () => {
         </motion.div>
 
         {/* Destination Cards - rest of the component remains the same */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
           {destinations.map((destination, index) => (
             <motion.div
               key={index}
