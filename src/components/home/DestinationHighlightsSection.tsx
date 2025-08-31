@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion, AnimatePresence } from "framer-motion";
-import { Clock, Plane, MapPin, TrendingUp, Users, Globe, CheckCircle } from "lucide-react";
+import { motion } from "framer-motion";
+import { Clock, Plane } from "lucide-react";
 import { useState, useEffect } from "react";
+// import WorldMapSVG from "@/assets/worldMaps/world-map-1.svg?react";
+import WorldMapSVG from "@/assets/worldMaps/world-map-1.svg?react";
+
 
 const DestinationHighlightsSection = () => {
   const [hoveredDestination, setHoveredDestination] = useState<string | null>(null);
@@ -25,9 +28,8 @@ const DestinationHighlightsSection = () => {
       roles: ["Mason", "Agricultural Worker"],
       deploymentTime: "30-45 days",
       slug: "israel",
-      coordinates: { x: 550, y: 200 },
-      color: "hsl(var(--primary))",
-      stats: { placements: "500+", success: "95%" }
+      coordinates: { x: 885, y: 245 }, // Tel Aviv area - adjust these based on your SVG
+      color: "hsl(var(--primary))"
     },
     {
       name: "Gulf Countries",
@@ -36,9 +38,8 @@ const DestinationHighlightsSection = () => {
       roles: ["Construction Worker", "Hotel Staff"],
       deploymentTime: "35-50 days",
       slug: "gulf",
-      coordinates: { x: 600, y: 250 },
-      color: "hsl(var(--secondary))",
-      stats: { placements: "1200+", success: "92%" }
+      coordinates: { x: 960, y: 285 }, // Dubai/UAE area - adjust these based on your SVG
+      color: "hsl(var(--secondary))"
     },
     {
       name: "Europe",
@@ -47,26 +48,25 @@ const DestinationHighlightsSection = () => {
       roles: ["Farm Worker", "Technical Specialist"],
       deploymentTime: "45-60 days", 
       slug: "europe",
-      coordinates: { x: 450, y: 150 },
-      color: "hsl(var(--primary-light))",
-      stats: { placements: "300+", success: "88%" }
+      coordinates: { x: 775, y: 165 }, // Germany/Central Europe - adjust these based on your SVG
+      color: "hsl(var(--primary-light))"
     }
   ];
 
-  // Sri Lanka coordinates (origin)
-  const sriLankaCoords = { x: 650, y: 320 };
+  // Sri Lanka coordinates (origin) - adjust based on your SVG
+  const sriLankaCoords = { x: 1080, y: 370 };
 
   // Generate curved path between two points
   const generateCurvedPath = (start: {x: number, y: number}, end: {x: number, y: number}) => {
     const midX = (start.x + end.x) / 2;
-    const midY = Math.min(start.y, end.y) - 60;
+    const midY = Math.min(start.y, end.y) - 80; // Curve upward
     return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
   };
 
   // Calculate point along quadratic bezier curve
   const getPointOnCurve = (start: {x: number, y: number}, end: {x: number, y: number}, t: number) => {
     const midX = (start.x + end.x) / 2;
-    const midY = Math.min(start.y, end.y) - 60;
+    const midY = Math.min(start.y, end.y) - 80;
     
     const x = Math.pow(1-t, 2) * start.x + 2*t*(1-t) * midX + Math.pow(t, 2) * end.x;
     const y = Math.pow(1-t, 2) * start.y + 2*t*(1-t) * midY + Math.pow(t, 2) * end.y;
@@ -74,39 +74,24 @@ const DestinationHighlightsSection = () => {
     return { x, y };
   };
 
-  // World map path - simplified world outline
-  const worldMapPath = "M100,280 Q200,250 300,260 Q400,240 500,250 Q600,230 700,240 Q800,220 900,230 Q1000,210 1100,220 L1100,350 Q1000,360 900,350 Q800,370 700,360 Q600,380 500,370 Q400,390 300,380 Q200,400 100,390 Z M150,200 Q250,180 350,190 Q450,170 550,180 Q650,160 750,170 Q850,150 950,160 Q1050,140 1150,150 L1150,280 Q1050,290 950,280 Q850,300 750,290 Q650,310 550,300 Q450,320 350,310 Q250,330 150,320 Z";
-
   return (
     <motion.section 
-      className="py-20 bg-gradient-to-br from-background via-background to-muted/20"
+      className="py-16 bg-background"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header */}
+      <div className="mx-auto px-6 lg:px-8">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           viewport={{ once: true, margin: "-50px" }}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            <Globe size={16} />
-            Global Deployment Network
-          </motion.div>
-          
           <motion.h2 
-            className="text-5xl font-bold text-foreground mb-6 gradient-text"
+            className="text-4xl font-bold text-foreground mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
@@ -115,73 +100,48 @@ const DestinationHighlightsSection = () => {
             Destination Highlights
           </motion.h2>
           <motion.p 
-            className="text-xl text-muted-foreground max-w-3xl mx-auto"
+            className="text-xl text-muted-foreground"
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            Connect with leading international markets through our established deployment networks. 
-            Track real-time routes and success metrics across key destinations.
+            Deploy candidates to leading international markets
           </motion.p>
         </motion.div>
         
         {/* Interactive World Map */}
         <motion.div
-          className="mb-20"
+          className="mb-16"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <div className="relative bg-gradient-to-br from-card via-card to-muted/10 rounded-3xl p-8 shadow-elegant border border-border/50 backdrop-blur-sm overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 pointer-events-none" />
-            
-            {/* Map container */}
-            <div className="relative aspect-[16/10] w-full max-h-[600px]">
+          <figure className="bg-card rounded-2xl overflow-hidden max-h-[70vh]">
+            <div className="aspect-[16/9] md:aspect-[16/9] sm:aspect-[4/3] relative">
               <svg
-                viewBox="0 0 1200 480"
-                className="w-full h-full"
+                viewBox="0 0 1500 700"
+                className="w-full max-h-[70vh]"
                 role="img"
                 aria-labelledby="map-title"
               >
-                <title id="map-title">Interactive deployment routes from Sri Lanka to international destinations</title>
+                <title id="map-title">Routes from Sri Lanka to key international destinations</title>
                 
-                {/* Grid background */}
-                <defs>
-                  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--border))" strokeWidth="0.5" opacity="0.3"/>
-                  </pattern>
-                  
-                  {/* Gradient definitions */}
-                  <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="hsl(var(--muted))" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="hsl(var(--muted))" stopOpacity="0.1" />
-                  </linearGradient>
-                  
-                  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                    <feMerge> 
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                </defs>
-                
-                {/* Grid background */}
-                <rect width="1200" height="480" fill="url(#grid)" opacity="0.3" />
-                
-                {/* Simplified world map outline */}
-                <motion.path
-                  d={worldMapPath}
-                  fill="url(#mapGradient)"
-                  stroke="hsl(var(--border))"
-                  strokeWidth="1"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
-                />
+                {/* Custom World Map SVG as background */}
+                <g className="world-map-background" aria-hidden="true">
+                  <WorldMapSVG 
+                    className="w-full h-full opacity-80"
+                    style={{
+                      filter: "brightness(0.8) contrast(1.1)",
+                      fill: "hsl(var(--muted) / 0.4)",
+                      stroke: "hsl(var(--border))",
+                      strokeWidth: "0.5"
+                    }}
+                    width="1500" 
+                    height="700" 
+                  />
+                </g>
 
                 {/* Animated route paths */}
                 {destinations.map((destination, index) => {
@@ -193,13 +153,12 @@ const DestinationHighlightsSection = () => {
                         d={pathData}
                         fill="none"
                         stroke={destination.color}
-                        strokeWidth={hoveredDestination === destination.slug ? "4" : "3"}
-                        strokeOpacity="0.8"
+                        strokeWidth={hoveredDestination === destination.slug ? "3" : "2"}
+                        strokeOpacity="0.7"
                         strokeLinecap="round"
-                        filter="url(#glow)"
                         initial={{ pathLength: 0 }}
                         animate={{ pathLength: 1 }}
-                        transition={{ duration: 1.5, delay: 1 + index * 0.3, ease: "easeInOut" }}
+                        transition={{ duration: 1.5, delay: 0.8 + index * 0.3, ease: "easeInOut" }}
                       />
                       
                       {/* Animated traveling dash */}
@@ -208,15 +167,15 @@ const DestinationHighlightsSection = () => {
                           d={pathData}
                           fill="none"
                           stroke={destination.color}
-                          strokeWidth="4"
-                          strokeDasharray="15 30"
+                          strokeWidth="3"
+                          strokeDasharray="20 40"
                           strokeLinecap="round"
-                          strokeOpacity="0.9"
+                          strokeOpacity="0.8"
                           animate={{
-                            strokeDashoffset: [0, -45]
+                            strokeDashoffset: [0, -60]
                           }}
                           transition={{
-                            duration: 2.5,
+                            duration: 3,
                             repeat: Infinity,
                             ease: "linear",
                             delay: index * 0.5
@@ -245,23 +204,16 @@ const DestinationHighlightsSection = () => {
                             ]
                           }}
                           transition={{
-                            duration: 5,
+                            duration: 4,
                             repeat: Infinity,
                             ease: "easeInOut",
-                            delay: index * 1
+                            delay: index * 0.7
                           }}
                         >
-                          <circle
-                            cx="0"
-                            cy="0"
-                            r="8"
-                            fill={destination.color}
-                            opacity="0.3"
-                          />
                           <Plane
-                            size={16}
-                            className="text-foreground drop-shadow-lg"
-                            style={{ transform: "translate(-8px, -8px)" }}
+                            size={14}
+                            className="text-primary drop-shadow-sm"
+                            style={{ transform: "translate(-7px, -7px)" }}
                           />
                         </motion.g>
                       )}
@@ -272,103 +224,69 @@ const DestinationHighlightsSection = () => {
                 {/* Destination markers */}
                 {destinations.map((destination, index) => (
                   <g key={`marker-${destination.slug}`}>
-                    {/* Pulsing ring on hover */}
-                    {hoveredDestination === destination.slug && !reducedMotion && (
-                      <motion.circle
-                        cx={destination.coordinates.x}
-                        cy={destination.coordinates.y}
-                        r="20"
-                        fill="none"
-                        stroke={destination.color}
-                        strokeWidth="2"
-                        strokeOpacity="0.6"
-                        animate={{
-                          r: [15, 25, 15],
-                          strokeOpacity: [0.8, 0.2, 0.8]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                    )}
-                    
                     <motion.circle
                       cx={destination.coordinates.x}
                       cy={destination.coordinates.y}
-                      r="12"
+                      r="10"
                       fill={destination.color}
                       stroke="hsl(var(--background))"
                       strokeWidth="3"
-                      className="cursor-pointer drop-shadow-lg"
-                      filter="url(#glow)"
+                      className="cursor-pointer drop-shadow-sm"
                       aria-label={`${destination.name} destination`}
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.6, delay: 1.5 + index * 0.2, type: "spring", stiffness: 300 }}
+                      transition={{ duration: 0.5, delay: 1.2 + index * 0.2 }}
                       whileHover={{ scale: 1.3 }}
                       onMouseEnter={() => setHoveredDestination(destination.slug)}
                       onMouseLeave={() => setHoveredDestination(null)}  
                     />
                     
-                    {/* Enhanced tooltip on hover */}
-                    <AnimatePresence>
-                      {hoveredDestination === destination.slug && (
-                        <motion.g
-                          initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                          transition={{ duration: 0.2, ease: "easeOut" }}
+                    {/* Tooltip on hover */}
+                    {hoveredDestination === destination.slug && (
+                      <motion.g
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <rect
+                          x={destination.coordinates.x - 40}
+                          y={destination.coordinates.y - 50}
+                          width="80"
+                          height="30"
+                          rx="6"
+                          fill="hsl(var(--popover))"
+                          stroke="hsl(var(--border))"
+                          strokeWidth="1"
+                          className="drop-shadow-md"
+                        />
+                        <text
+                          x={destination.coordinates.x}
+                          y={destination.coordinates.y - 30}
+                          textAnchor="middle"
+                          className="text-sm font-medium fill-current text-popover-foreground"
                         >
-                          <rect
-                            x={destination.coordinates.x - 65}
-                            y={destination.coordinates.y - 70}
-                            width="130"
-                            height="50"
-                            rx="12"
-                            fill="hsl(var(--background))"
-                            stroke="hsl(var(--border))"
-                            strokeWidth="1"
-                            className="drop-shadow-xl"
-                            filter="url(#glow)"
-                          />
-                          <text
-                            x={destination.coordinates.x}
-                            y={destination.coordinates.y - 50}
-                            textAnchor="middle"
-                            className="text-sm font-semibold fill-current text-foreground"
-                          >
-                            {destination.name}
-                          </text>
-                          <text
-                            x={destination.coordinates.x}
-                            y={destination.coordinates.y - 32}
-                            textAnchor="middle"
-                            className="text-xs fill-current text-muted-foreground"
-                          >
-                            {destination.stats.placements} placements • {destination.stats.success} success
-                          </text>
-                        </motion.g>
-                      )}  
-                    </AnimatePresence>
+                          {destination.name}
+                        </text>
+                      </motion.g>
+                    )}  
                   </g>
                 ))}
 
-                {/* Sri Lanka origin marker with enhanced styling */}
+                {/* Sri Lanka origin marker with pulsing halo */}
                 <g>
                   {!reducedMotion && (
                     <motion.circle
                       cx={sriLankaCoords.x}
                       cy={sriLankaCoords.y}
-                      r="30"
+                      r="25"
                       fill="hsl(var(--primary) / 0.2)"
                       animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [0.5, 0.1, 0.5]
+                        scale: [1, 1.4, 1],
+                        opacity: [0.4, 0.1, 0.4]
                       }}
                       transition={{
-                        duration: 3,
+                        duration: 2.5,
                         repeat: Infinity,
                         ease: "easeInOut"
                       }}
@@ -379,55 +297,45 @@ const DestinationHighlightsSection = () => {
                   <motion.circle
                     cx={sriLankaCoords.x}
                     cy={sriLankaCoords.y}
-                    r="15"
+                    r="12"
                     fill="hsl(var(--primary))"
                     stroke="hsl(var(--background))"
                     strokeWidth="4"
-                    className="drop-shadow-lg"
-                    filter="url(#glow)"
+                    className="drop-shadow-sm"
                     aria-label="Sri Lanka origin point"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 300 }}
+                    transition={{ duration: 0.6, delay: 1 }}
                   />
                   
-                  <motion.text
+                  <text
                     x={sriLankaCoords.x}
-                    y={sriLankaCoords.y + 35}
+                    y={sriLankaCoords.y + 30}
                     textAnchor="middle"
-                    className="text-sm font-bold fill-current text-foreground drop-shadow-sm"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 2 }}
+                    className="text-sm font-semibold fill-current text-foreground drop-shadow-sm"
                   >
-                    🇱🇰 Sri Lanka
-                  </motion.text>
+                    Sri Lanka
+                  </text>
                 </g>
 
-                {/* Modern legend */}
-                <motion.g 
-                  className="legend"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 2.5 }}
-                >
+                {/* Legend */}
+                <g className="legend">
                   <rect
-                    x="30"
-                    y="30" 
-                    width="200"
-                    height="140"
-                    rx="16"
-                    fill="hsl(var(--background) / 0.95)"
+                    x="1400"
+                    y="20" 
+                    width="180"
+                    height="120"
+                    rx="10"
+                    fill="hsl(var(--card) / 0.95)"
                     stroke="hsl(var(--border))"
                     strokeWidth="1"
-                    className="drop-shadow-lg"
-                    filter="url(#glow)"
+                    className="drop-shadow-sm"
                   />
                   <text
-                    x="130"
-                    y="55"
+                    x="1490"
+                    y="45"
                     textAnchor="middle"
-                    className="text-base font-bold fill-current text-foreground"
+                    className="text-sm font-semibold fill-current text-card-foreground"
                   >
                     Deployment Routes
                   </text>
@@ -435,16 +343,15 @@ const DestinationHighlightsSection = () => {
                   {destinations.map((destination, index) => (
                     <g key={`legend-${destination.slug}`}>
                       <circle
-                        cx="50"
-                        cy={80 + index * 25}
-                        r="6"
+                        cx="1420"
+                        cy={70 + index * 22}
+                        r="5"
                         fill={destination.color}
-                        filter="url(#glow)"
                       />
                       <text
-                        x="70"
-                        y={86 + index * 25}
-                        className="text-sm fill-current text-foreground cursor-pointer hover:fill-primary transition-colors"
+                        x="1435"
+                        y={76 + index * 22}
+                        className="text-xs fill-current text-card-foreground cursor-pointer"
                         role="button"
                         tabIndex={0}
                         onMouseEnter={() => setHoveredDestination(destination.slug)}
@@ -454,72 +361,88 @@ const DestinationHighlightsSection = () => {
                       >
                         {destination.name}
                       </text>
-                      <text
-                        x="180"
-                        y={86 + index * 25}
-                        className="text-xs fill-current text-muted-foreground"
-                        textAnchor="middle"
-                      >
-                        {destination.stats.success}
-                      </text>
                     </g>
                   ))}
-                </motion.g>
+                </g>
               </svg>
             </div>
-          </div>
+            <figcaption className="sr-only">
+              Interactive map showing employment routes from Sri Lanka to Israel, Gulf countries, and Europe
+            </figcaption>
+          </figure>
         </motion.div>
 
-        {/* Enhanced Destination Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Destination Cards - rest of the component remains the same */}
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
           {destinations.map((destination, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ 
-                duration: 0.6, 
-                delay: 0.8 + index * 0.15, 
+                duration: 0.5, 
+                delay: 0.6 + index * 0.15, 
                 ease: "easeOut" 
               }}
               viewport={{ once: true, margin: "-50px" }}
               whileHover={{ 
-                y: -12, 
-                scale: 1.03,
-                transition: { duration: 0.3, ease: "easeOut" }
+                y: -8, 
+                scale: 1.02,
+                transition: { duration: 0.3 }
               }}
-              onMouseEnter={() => setHoveredDestination(destination.slug)}
-              onMouseLeave={() => setHoveredDestination(null)}
             >
-              <Card className="h-full border-0 shadow-elegant bg-gradient-to-br from-card to-muted/20 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 group overflow-hidden relative">
-                {/* Background decoration */}
-                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
-                <CardHeader className="relative">
+              <Card className="hover-lift h-full">
+                <CardHeader>
                   <motion.div 
-                    className="flex items-center gap-4 mb-4"
+                    className="flex items-center gap-3 mb-2"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ 
                       duration: 0.5, 
-                      delay: 1.0 + index * 0.15 
+                      delay: 0.8 + index * 0.15 
                     }}
                     viewport={{ once: true }}
                   >
-                    <motion.div
-                      className="text-4xl p-3 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl border border-border/50"
+                    <motion.span 
+                      className="text-3xl"
                       initial={{ opacity: 0, scale: 0.5, rotate: 180 }}
                       whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                       transition={{ 
-                        duration: 0.8, 
-                        delay: 1.2 + index * 0.15,
+                        duration: 0.6, 
+                        delay: 1.0 + index * 0.15,
                         ease: "easeOut"
                       }}
                       viewport={{ once: true }}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      whileHover={{ scale: 1.2, rotate: 10 }}
                     >
                       {destination.flag}
+                    </motion.span>
+                    <motion.div
+                      initial={{ opacity: 0, x: -15 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: 1.1 + index * 0.15 
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      <CardTitle className="text-xl">{destination.name}</CardTitle>
                     </motion.div>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      duration: 0.4, 
+                      delay: 1.2 + index * 0.15 
+                    }}
+                    viewport={{ once: true }}
+                  >
+                    <CardDescription className="text-sm">{destination.regulation}</CardDescription>
+                  </motion.div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3 mb-4">
                     <motion.div
                       initial={{ opacity: 0, x: -15 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -529,89 +452,35 @@ const DestinationHighlightsSection = () => {
                       }}
                       viewport={{ once: true }}
                     >
-                      <CardTitle className="text-2xl font-bold">{destination.name}</CardTitle>
-                      <p className="text-sm text-muted-foreground mt-1">{destination.regulation}</p>
+                      <p className="font-medium text-sm text-muted-foreground mb-1">Sample Roles:</p>
+                      <p className="text-sm">{destination.roles.join(", ")}</p>
                     </motion.div>
-                  </motion.div>
-
-                  {/* Stats row */}
-                  <motion.div
-                    className="flex items-center gap-4 p-3 bg-muted/30 rounded-xl border border-border/30"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ 
-                      duration: 0.4, 
-                      delay: 1.4 + index * 0.15 
-                    }}
-                    viewport={{ once: true }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <Users size={16} className="text-primary" />
-                      <span className="text-sm font-semibold">{destination.stats.placements}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <TrendingUp size={16} className="text-secondary" />
-                      <span className="text-sm font-semibold">{destination.stats.success}</span>
-                    </div>
-                  </motion.div>
-                </CardHeader>
-
-                <CardContent className="relative space-y-4">
-                  <motion.div
-                    initial={{ opacity: 0, x: -15 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ 
-                      duration: 0.4, 
-                      delay: 1.5 + index * 0.15 
-                    }}
-                    viewport={{ once: true }}
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <MapPin size={16} className="text-muted-foreground" />
-                      <p className="font-medium text-sm text-muted-foreground">Sample Roles:</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {destination.roles.map((role, roleIndex) => (
-                        <span 
-                          key={roleIndex}
-                          className="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20"
-                        >
-                          {role}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-
-                  <motion.div 
-                    className="flex items-center gap-2 text-muted-foreground"
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ 
-                      duration: 0.4, 
-                      delay: 1.6 + index * 0.15 
-                    }}
-                    viewport={{ once: true }}
-                  >
-                    <Clock size={16} />
-                    <span className="text-sm">Avg deployment: <strong>{destination.deploymentTime}</strong></span>
-                  </motion.div>
-
+                    <motion.div 
+                      className="flex items-center text-sm text-muted-foreground"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ 
+                        duration: 0.4, 
+                        delay: 1.4 + index * 0.15 
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      <Clock className="h-4 w-4 mr-2" />
+                      Avg deployment: {destination.deploymentTime}
+                    </motion.div>
+                  </div>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ 
                       duration: 0.3, 
-                      delay: 1.7 + index * 0.15 
+                      delay: 1.5 + index * 0.15 
                     }}
                     viewport={{ once: true }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Button 
-                      className="w-full bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-primary-foreground font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                      size="lg"
-                    >
-                      <CheckCircle size={18} className="mr-2" />
+                    <Button variant="outline" size="sm" className="w-full">
                       View Destination
                     </Button>
                   </motion.div>
