@@ -31,15 +31,15 @@ const HeroSection = ({ onVideoOpen }: HeroSectionProps) => {
         viewport={{ once: true }}
       >
         <motion.h1 
-          className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 leading-tight"
+          className="text-5xl md:text-6xl lg:text-7xl pt-8 font-bold text-primary-foreground mb-6 leading-tight"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          Certified candidates, ready to work —
+          Certified candidates, <span className="text-secondary md:text-background">ready to work </span><span className="hidden md:block">—</span>
           <motion.span 
-            className="block gradient-text mt-2"
+            className="hidden md:block gradient-text mt-2"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
@@ -94,7 +94,7 @@ const HeroSection = ({ onVideoOpen }: HeroSectionProps) => {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 text-primary-foreground/80"
+          className="grid grid-cols-2 pb-12 md:grid-cols-4 gap-8 text-primary-foreground/80"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.0, ease: "easeOut" }}

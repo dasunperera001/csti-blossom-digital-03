@@ -129,7 +129,7 @@ const HeaderSection = () => {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className={`flex items-center justify-between transition-all duration-300 ${
-            isScrolled ? 'h-20' : 'h-20'
+            isScrolled ? 'min-h-20 pt-8 pb-4' : 'h-20 pt-8 pb-8'
           }`}>
             
             {/* Logo */}
