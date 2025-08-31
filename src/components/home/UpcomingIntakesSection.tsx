@@ -11,13 +11,13 @@ const UpcomingIntakesSection = () => {
       status: "Open",
       category: "Construction",
       duration: "3 months",
-      location: "Colombo Training Center",
+      location: "Galle Training Center",
       spotsTotal: 50,
       spotsAvailable: 32,
       applicationDeadline: "Jan 10, 2025",
       skills: ["Mason", "Carpenter", "Steel Fixer"],
       certification: "Gov. Certified",
-      gradient: "from-orange-500/20 to-red-500/20"
+      // gradient: "from-orange-500/20 to-red-500/20"
     },
     { 
       date: "Feb 1, 2025", 
@@ -25,13 +25,13 @@ const UpcomingIntakesSection = () => {
       status: "Open",
       category: "Hospitality",
       duration: "2 months",
-      location: "Kandy Training Hub",
+      location: "Galle Training Center",
       spotsTotal: 40,
       spotsAvailable: 28,
       applicationDeadline: "Jan 25, 2025",
       skills: ["Hotel Service", "Restaurant Operations", "Guest Relations"],
       certification: "Industry Certified",
-      gradient: "from-blue-500/20 to-cyan-500/20"
+      // gradient: "from-blue-500/20 to-cyan-500/20"
     },
     { 
       date: "Feb 20, 2025", 
@@ -39,13 +39,13 @@ const UpcomingIntakesSection = () => {
       status: "Limited",
       category: "Agriculture",
       duration: "2.5 months",
-      location: "Anuradhapura Center",
+      location: "Hambanthota Agicultural Center",
       spotsTotal: 30,
       spotsAvailable: 5,
       applicationDeadline: "Feb 15, 2025",
       skills: ["Greenhouse Technology", "Organic Farming", "Irrigation Systems"],
       certification: "Skills Certified",
-      gradient: "from-green-500/20 to-emerald-500/20"
+      // gradient: "from-green-500/20 to-emerald-500/20"
     },
     { 
       date: "Mar 5, 2025", 
@@ -59,7 +59,7 @@ const UpcomingIntakesSection = () => {
       applicationDeadline: "Feb 28, 2025",
       skills: ["Welding", "Electrical Systems", "Plumbing"],
       certification: "Trade Certified",
-      gradient: "from-purple-500/20 to-indigo-500/20"
+      // gradient: "from-purple-500/20 to-indigo-500/20"
     }
   ];
 
@@ -120,7 +120,8 @@ const UpcomingIntakesSection = () => {
             >
               <Card className="hover-lift h-full overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
                 {/* Header with Gradient Background */}
-                <div className={`relative p-6 bg-gradient-to-r ${intake.gradient}`}>
+                {/* <div className={`relative p-6 pb-2 border-b border-gray-200 bg-gradient-to-r ${intake.gradient}`}> */}
+                <div className={`relative p-6 pb-2 border-b border-gray-200 bg-gradient-to-r`}>
                   <div className="flex items-start justify-between">
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
@@ -136,7 +137,7 @@ const UpcomingIntakesSection = () => {
                         <span className="text-sm font-medium text-primary">{intake.date}</span>
                       </div>
                       <CardTitle className="text-xl mb-1">{intake.course}</CardTitle>
-                      <p className="text-sm text-muted-foreground">{intake.category} Program</p>
+                      {/* <p className="text-sm text-muted-foreground">{intake.category} Program</p> */}
                     </motion.div>
                     
                     <motion.div
@@ -201,7 +202,7 @@ const UpcomingIntakesSection = () => {
                     </motion.div>
 
                     {/* Availability Progress */}
-                    <motion.div
+                    {/* <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ 
@@ -237,10 +238,10 @@ const UpcomingIntakesSection = () => {
                           viewport={{ once: true }}
                         />
                       </div>
-                    </motion.div>
+                    </motion.div> */}
 
                     {/* Skills List */}
-                    <motion.div
+                    {/* <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ 
@@ -267,10 +268,10 @@ const UpcomingIntakesSection = () => {
                           </motion.span>
                         ))}
                       </div>
-                    </motion.div>
+                    </motion.div> */}
 
                     {/* Application Deadline */}
-                    <motion.div 
+                    {/* <motion.div 
                       className="p-3 bg-muted/50 rounded-lg border"
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -282,7 +283,7 @@ const UpcomingIntakesSection = () => {
                     >
                       <p className="text-xs text-muted-foreground">Application Deadline</p>
                       <p className="text-sm font-medium text-destructive">{intake.applicationDeadline}</p>
-                    </motion.div>
+                    </motion.div> */}
                   </div>
                   
                   <motion.div
@@ -297,7 +298,8 @@ const UpcomingIntakesSection = () => {
                     whileTap={{ scale: 0.98 }}
                   >
                     <Button 
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group/btn"
+                      // className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group/btn"
+                      className="w-full bg-background text-foreground border border-muted hover:bg-primary/90 hover:text-primary-foreground group/btn"
                       size="lg"
                       disabled={intake.status === 'Limited' && intake.spotsAvailable < 5}
                     >

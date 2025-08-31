@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { motion } from "framer-motion";
 import { Clock, Plane } from "lucide-react";
 import { useState, useEffect } from "react";
+import WorldMapSVG from "@/assets/worldMaps/world-map-1.svg?react";
 
 const DestinationHighlightsSection = () => {
   const [hoveredDestination, setHoveredDestination] = useState<string | null>(null);
@@ -139,21 +140,17 @@ const DestinationHighlightsSection = () => {
                 
                 {/* Custom World Map SVG as background */}
                 <g className="world-map-background" aria-hidden="true">
-                  {/* Simplified world map outline */}
-                  <path
-                    d="M200 200 Q400 180 600 200 T1000 220 L1200 240 Q1300 260 1400 280 L1400 400 Q1300 420 1200 440 L1000 460 Q800 480 600 460 T200 440 Z"
-                    fill="hsl(var(--muted) / 0.4)"
-                    stroke="hsl(var(--border))"
-                    strokeWidth="0.5"
-                    className="opacity-80"
+                  <WorldMapSVG 
+                    className="w-full h-full opacity-80"
                     style={{
-                      filter: "brightness(0.8) contrast(1.1)"
+                      filter: "brightness(0.8) contrast(1.1)",
+                      fill: "hsl(var(--muted) / 0.4)",
+                      stroke: "hsl(var(--border))",
+                      strokeWidth: "0.5"
                     }}
+                    width="1500" 
+                    height="700" 
                   />
-                  {/* Additional continents */}
-                  <circle cx="850" cy="180" r="40" fill="hsl(var(--muted) / 0.3)" stroke="hsl(var(--border))" strokeWidth="0.5" />
-                  <ellipse cx="1050" cy="350" rx="30" ry="20" fill="hsl(var(--muted) / 0.3)" stroke="hsl(var(--border))" strokeWidth="0.5" />
-                  <path d="M300 350 Q500 330 700 350 Q900 370 1100 350 L1100 500 Q900 520 700 500 Q500 480 300 500 Z" fill="hsl(var(--muted) / 0.3)" stroke="hsl(var(--border))" strokeWidth="0.5" />
                 </g>
 
                 {/* Animated route paths - Moving dashed lines only */}
