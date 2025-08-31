@@ -17,14 +17,14 @@ const HeroSection = ({ onVideoOpen }: HeroSectionProps) => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <video src={heroVideo} autoPlay loop muted className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/40"></div>
       </div>
 
       <motion.div 
-        className="relative z-10 max-w-7xl mx-auto pt-24 px-6 lg:px-8 text-center"
+        className="relative z-10 max-w-7xl mx-auto pt-4 px-6 lg:px-8 text-center"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}

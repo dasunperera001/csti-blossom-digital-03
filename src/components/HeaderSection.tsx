@@ -128,7 +128,7 @@ const HeaderSection = () => {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className={`flex items-center justify-between transition-all duration-300 ${
-            isScrolled ? 'h-16' : 'h-20'
+            isScrolled ? 'h-20' : 'h-20'
           }`}>
             
             {/* Logo */}
@@ -149,10 +149,10 @@ const HeaderSection = () => {
               </div>
               <div>
                 <h1 className={`font-bold text-foreground transition-all duration-300 ${
-                  isScrolled ? 'text-xl' : 'text-2xl'
+                  isScrolled ? 'text-xl' : 'text-xl'
                 }`}>CSTI Bureau</h1>
                 <p className={`text-muted-foreground transition-all duration-300 ${
-                  isScrolled ? 'text-sm' : 'text-base'
+                  isScrolled ? 'text-sm' : 'text-sm'
                 }`}>Training & Placement Academy</p>
               </div>
             </motion.a>
