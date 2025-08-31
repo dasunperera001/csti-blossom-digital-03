@@ -3,6 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { motion } from "framer-motion";
 import { Clock, Plane } from "lucide-react";
 import { useState, useEffect } from "react";
+// import WorldMapSVG from "@/assets/worldMaps/world-map-1.svg?react";
+import WorldMapSVG from "@/assets/worldMaps/world-map-1.svg?react";
+
 
 const DestinationHighlightsSection = () => {
   const [hoveredDestination, setHoveredDestination] = useState<string | null>(null);
@@ -25,17 +28,17 @@ const DestinationHighlightsSection = () => {
       roles: ["Mason", "Agricultural Worker"],
       deploymentTime: "30-45 days",
       slug: "israel",
-      coordinates: { x: 520, y: 320 }, // Tel Aviv area
+      coordinates: { x: 485, y: 225 }, // Tel Aviv area - adjust these based on your SVG
       color: "hsl(var(--primary))"
     },
     {
-      name: "GCC Countries",
+      name: "Gulf Countries",
       flag: "🇦🇪",
       regulation: "Compliant with Gulf labor regulations",
       roles: ["Construction Worker", "Hotel Staff"],
       deploymentTime: "35-50 days",
-      slug: "gcc",
-      coordinates: { x: 580, y: 350 }, // Dubai/UAE area
+      slug: "gulf",
+      coordinates: { x: 515, y: 220 }, // Dubai/UAE area - adjust these based on your SVG
       color: "hsl(var(--secondary))"
     },
     {
@@ -45,13 +48,13 @@ const DestinationHighlightsSection = () => {
       roles: ["Farm Worker", "Technical Specialist"],
       deploymentTime: "45-60 days", 
       slug: "europe",
-      coordinates: { x: 480, y: 240 }, // Germany/Central Europe
+      coordinates: { x: 410, y: 155 }, // Germany/Central Europe - adjust these based on your SVG
       color: "hsl(var(--primary-light))"
     }
   ];
 
-  // Sri Lanka coordinates (origin)
-  const sriLankaCoords = { x: 650, y: 420 };
+  // Sri Lanka coordinates (origin) - adjust based on your SVG
+  const sriLankaCoords = { x: 580, y: 260 };
 
   // Generate curved path between two points
   const generateCurvedPath = (start: {x: number, y: number}, end: {x: number, y: number}) => {
@@ -65,7 +68,6 @@ const DestinationHighlightsSection = () => {
     const midX = (start.x + end.x) / 2;
     const midY = Math.min(start.y, end.y) - 80;
     
-    // Quadratic bezier formula: B(t) = (1-t)²P₀ + 2t(1-t)P₁ + t²P₂
     const x = Math.pow(1-t, 2) * start.x + 2*t*(1-t) * midX + Math.pow(t, 2) * end.x;
     const y = Math.pow(1-t, 2) * start.y + 2*t*(1-t) * midY + Math.pow(t, 2) * end.y;
     
@@ -126,35 +128,18 @@ const DestinationHighlightsSection = () => {
               >
                 <title id="map-title">Routes from Sri Lanka to key international destinations</title>
                 
-                {/* Simplified world map outline */}
-                <g className="map-outlines" aria-hidden="true">
-                  {/* Africa */}
-                  <path
-                    d="M400 250 Q420 280 440 350 Q430 400 420 450 Q380 460 360 450 Q340 420 350 380 Q360 340 380 300 Q390 270 400 250 Z"
-                    fill="hsl(var(--muted) / 0.3)"
-                    stroke="hsl(var(--border))"
-                    strokeWidth="1"
-                  />
-                  {/* Europe */}
-                  <path
-                    d="M450 180 Q480 200 500 220 Q520 240 510 260 Q490 270 470 260 Q450 250 440 230 Q430 200 450 180 Z"
-                    fill="hsl(var(--muted) / 0.3)"
-                    stroke="hsl(var(--border))"
-                    strokeWidth="1"
-                  />
-                  {/* Asia */}
-                  <path
-                    d="M500 200 Q550 220 600 250 Q650 280 680 320 Q700 360 690 400 Q670 420 640 410 Q600 390 570 370 Q540 340 520 300 Q500 260 500 200 Z"
-                    fill="hsl(var(--muted) / 0.3)"
-                    stroke="hsl(var(--border))"
-                    strokeWidth="1"
-                  />
-                  {/* Middle East */}
-                  <path
-                    d="M480 280 Q520 300 550 320 Q570 340 560 360 Q540 370 520 360 Q500 350 490 330 Q480 310 480 280 Z"
-                    fill="hsl(var(--muted) / 0.3)"
-                    stroke="hsl(var(--border))"
-                    strokeWidth="1"
+                {/* Custom World Map SVG as background */}
+                <g className="world-map-background" aria-hidden="true">
+                  <WorldMapSVG 
+                    className="w-full h-full opacity-80"
+                    style={{
+                      filter: "brightness(0.8) contrast(1.1)",
+                      fill: "hsl(var(--muted) / 0.4)",
+                      stroke: "hsl(var(--border))",
+                      strokeWidth: "0.5"
+                    }}
+                    width="800" 
+                    height="500" 
                   />
                 </g>
 
@@ -169,7 +154,7 @@ const DestinationHighlightsSection = () => {
                         fill="none"
                         stroke={destination.color}
                         strokeWidth={hoveredDestination === destination.slug ? "3" : "2"}
-                        strokeOpacity="0.4"
+                        strokeOpacity="0.7"
                         strokeLinecap="round"
                         initial={{ pathLength: 0 }}
                         animate={{ pathLength: 1 }}
@@ -185,6 +170,7 @@ const DestinationHighlightsSection = () => {
                           strokeWidth="3"
                           strokeDasharray="20 40"
                           strokeLinecap="round"
+                          strokeOpacity="0.8"
                           animate={{
                             strokeDashoffset: [0, -60]
                           }}
@@ -225,9 +211,9 @@ const DestinationHighlightsSection = () => {
                           }}
                         >
                           <Plane
-                            size={12}
-                            className="text-foreground"
-                            style={{ transform: "translate(-6px, -6px)" }}
+                            size={14}
+                            className="text-primary drop-shadow-sm"
+                            style={{ transform: "translate(-7px, -7px)" }}
                           />
                         </motion.g>
                       )}
@@ -241,11 +227,11 @@ const DestinationHighlightsSection = () => {
                     <motion.circle
                       cx={destination.coordinates.x}
                       cy={destination.coordinates.y}
-                      r="8"
+                      r="10"
                       fill={destination.color}
                       stroke="hsl(var(--background))"
-                      strokeWidth="2"
-                      className="cursor-pointer"
+                      strokeWidth="3"
+                      className="cursor-pointer drop-shadow-sm"
                       aria-label={`${destination.name} destination`}
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -264,20 +250,21 @@ const DestinationHighlightsSection = () => {
                         transition={{ duration: 0.2 }}
                       >
                         <rect
-                          x={destination.coordinates.x - 30}
-                          y={destination.coordinates.y - 45}
-                          width="60"
-                          height="25"
-                          rx="4"
+                          x={destination.coordinates.x - 40}
+                          y={destination.coordinates.y - 50}
+                          width="80"
+                          height="30"
+                          rx="6"
                           fill="hsl(var(--popover))"
                           stroke="hsl(var(--border))"
                           strokeWidth="1"
+                          className="drop-shadow-md"
                         />
                         <text
                           x={destination.coordinates.x}
-                          y={destination.coordinates.y - 28}
+                          y={destination.coordinates.y - 30}
                           textAnchor="middle"
-                          className="text-xs fill-current text-popover-foreground"
+                          className="text-sm font-medium fill-current text-popover-foreground"
                         >
                           {destination.name}
                         </text>
@@ -292,14 +279,14 @@ const DestinationHighlightsSection = () => {
                     <motion.circle
                       cx={sriLankaCoords.x}
                       cy={sriLankaCoords.y}
-                      r="20"
+                      r="25"
                       fill="hsl(var(--primary) / 0.2)"
                       animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.3, 0.1, 0.3]
+                        scale: [1, 1.4, 1],
+                        opacity: [0.4, 0.1, 0.4]
                       }}
                       transition={{
-                        duration: 2,
+                        duration: 2.5,
                         repeat: Infinity,
                         ease: "easeInOut"
                       }}
@@ -310,10 +297,11 @@ const DestinationHighlightsSection = () => {
                   <motion.circle
                     cx={sriLankaCoords.x}
                     cy={sriLankaCoords.y}
-                    r="10"
+                    r="12"
                     fill="hsl(var(--primary))"
                     stroke="hsl(var(--background))"
-                    strokeWidth="3"
+                    strokeWidth="4"
+                    className="drop-shadow-sm"
                     aria-label="Sri Lanka origin point"
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -322,9 +310,9 @@ const DestinationHighlightsSection = () => {
                   
                   <text
                     x={sriLankaCoords.x}
-                    y={sriLankaCoords.y + 25}
+                    y={sriLankaCoords.y + 30}
                     textAnchor="middle"
-                    className="text-sm font-medium fill-current text-foreground"
+                    className="text-sm font-semibold fill-current text-foreground drop-shadow-sm"
                   >
                     Sri Lanka
                   </text>
@@ -333,36 +321,37 @@ const DestinationHighlightsSection = () => {
                 {/* Legend */}
                 <g className="legend">
                   <rect
-                    x="620"
-                    y="30" 
-                    width="160"
-                    height="100"
-                    rx="8"
-                    fill="hsl(var(--card) / 0.9)"
+                    x="600"
+                    y="20" 
+                    width="180"
+                    height="120"
+                    rx="10"
+                    fill="hsl(var(--card) / 0.95)"
                     stroke="hsl(var(--border))"
                     strokeWidth="1"
+                    className="drop-shadow-sm"
                   />
                   <text
-                    x="700"
-                    y="50"
+                    x="690"
+                    y="45"
                     textAnchor="middle"
                     className="text-sm font-semibold fill-current text-card-foreground"
                   >
-                    Destinations
+                    Deployment Routes
                   </text>
                   
                   {destinations.map((destination, index) => (
                     <g key={`legend-${destination.slug}`}>
                       <circle
-                        cx="635"
-                        cy={70 + index * 18}
-                        r="4"
+                        cx="620"
+                        cy={70 + index * 22}
+                        r="5"
                         fill={destination.color}
                       />
                       <text
-                        x="645"
-                        y={75 + index * 18}
-                        className="text-xs fill-current text-card-foreground"
+                        x="635"
+                        y={76 + index * 22}
+                        className="text-xs fill-current text-card-foreground cursor-pointer"
                         role="button"
                         tabIndex={0}
                         onMouseEnter={() => setHoveredDestination(destination.slug)}
@@ -378,12 +367,12 @@ const DestinationHighlightsSection = () => {
               </svg>
             </div>
             <figcaption className="sr-only">
-              Interactive map showing employment routes from Sri Lanka to Israel, GCC countries, and Europe
+              Interactive map showing employment routes from Sri Lanka to Israel, Gulf countries, and Europe
             </figcaption>
           </figure>
         </motion.div>
 
-        {/* Destination Cards */}
+        {/* Destination Cards - rest of the component remains the same */}
         <div className="grid md:grid-cols-3 gap-8">
           {destinations.map((destination, index) => (
             <motion.div
