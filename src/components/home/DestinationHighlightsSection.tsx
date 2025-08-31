@@ -3,9 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { motion } from "framer-motion";
 import { Clock, Plane } from "lucide-react";
 import { useState, useEffect } from "react";
-// import WorldMapSVG from "@/assets/worldMaps/world-map-1.svg?react";
 import WorldMapSVG from "@/assets/worldMaps/world-map-1.svg?react";
-
 
 const DestinationHighlightsSection = () => {
   const [hoveredDestination, setHoveredDestination] = useState<string | null>(null);
@@ -28,8 +26,9 @@ const DestinationHighlightsSection = () => {
       roles: ["Mason", "Agricultural Worker"],
       deploymentTime: "30-45 days",
       slug: "israel",
-      coordinates: { x: 885, y: 245 }, // Tel Aviv area - adjust these based on your SVG
-      color: "hsl(var(--primary))"
+      coordinates: { x: 885, y: 245 },
+      color: "hsl(var(--primary))",
+      labelOffset: { x: 0, y: -35 }
     },
     {
       name: "Gulf Countries",
@@ -38,8 +37,9 @@ const DestinationHighlightsSection = () => {
       roles: ["Construction Worker", "Hotel Staff"],
       deploymentTime: "35-50 days",
       slug: "gulf",
-      coordinates: { x: 960, y: 285 }, // Dubai/UAE area - adjust these based on your SVG
-      color: "hsl(var(--secondary))"
+      coordinates: { x: 960, y: 285 },
+      color: "hsl(var(--secondary))",
+      labelOffset: { x: 0, y: -35 }
     },
     {
       name: "Europe",
@@ -48,18 +48,19 @@ const DestinationHighlightsSection = () => {
       roles: ["Farm Worker", "Technical Specialist"],
       deploymentTime: "45-60 days", 
       slug: "europe",
-      coordinates: { x: 775, y: 165 }, // Germany/Central Europe - adjust these based on your SVG
-      color: "hsl(var(--primary-light))"
+      coordinates: { x: 775, y: 165 },
+      color: "hsl(var(--primary-light))",
+      labelOffset: { x: 0, y: 40 }
     }
   ];
 
-  // Sri Lanka coordinates (origin) - adjust based on your SVG
+  // Sri Lanka coordinates (origin)
   const sriLankaCoords = { x: 1080, y: 370 };
 
   // Generate curved path between two points
   const generateCurvedPath = (start: {x: number, y: number}, end: {x: number, y: number}) => {
     const midX = (start.x + end.x) / 2;
-    const midY = Math.min(start.y, end.y) - 80; // Curve upward
+    const midY = Math.min(start.y, end.y) - 80;
     return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
   };
 
@@ -72,6 +73,15 @@ const DestinationHighlightsSection = () => {
     const y = Math.pow(1-t, 2) * start.y + 2*t*(1-t) * midY + Math.pow(t, 2) * end.y;
     
     return { x, y };
+  };
+
+  // Calculate path length for smooth animation
+  const calculatePathLength = (start: {x: number, y: number}, end: {x: number, y: number}) => {
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    const straightDistance = Math.sqrt(dx * dx + dy * dy);
+    // Approximate curved path length (about 1.2x straight distance for our curve)
+    return straightDistance * 1.2;
   };
 
   return (
@@ -143,85 +153,204 @@ const DestinationHighlightsSection = () => {
                   />
                 </g>
 
-                {/* Animated route paths */}
+                {/* Animated route paths - Moving dashed lines only */}
                 {destinations.map((destination, index) => {
                   const pathData = generateCurvedPath(sriLankaCoords, destination.coordinates);
+                  const pathLength = calculatePathLength(sriLankaCoords, destination.coordinates);
+                  const dashLength = 25;
+                  const gapLength = 15;
+                  const totalDashPattern = dashLength + gapLength;
+                  
                   return (
                     <g key={destination.slug}>
-                      {/* Base path */}
-                      <motion.path
-                        d={pathData}
-                        fill="none"
-                        stroke={destination.color}
-                        strokeWidth={hoveredDestination === destination.slug ? "3" : "2"}
-                        strokeOpacity="0.7"
-                        strokeLinecap="round"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ duration: 1.5, delay: 0.8 + index * 0.3, ease: "easeInOut" }}
-                      />
-                      
-                      {/* Animated traveling dash */}
+                      {/* Moving dashed path */}
                       {!reducedMotion && (
                         <motion.path
                           d={pathData}
                           fill="none"
                           stroke={destination.color}
-                          strokeWidth="3"
-                          strokeDasharray="20 40"
+                          strokeWidth={hoveredDestination === destination.slug ? "4" : "3"}
+                          strokeDasharray={`${dashLength} ${gapLength}`}
                           strokeLinecap="round"
                           strokeOpacity="0.8"
+                          style={{
+                            filter: "drop-shadow(0 0 4px rgba(0,0,0,0.3))"
+                          }}
                           animate={{
-                            strokeDashoffset: [0, -60]
+                            strokeDashoffset: [0, -(totalDashPattern)]
                           }}
                           transition={{
-                            duration: 3,
+                            duration: 2,
                             repeat: Infinity,
                             ease: "linear",
-                            delay: index * 0.5
+                            delay: index * 0.3
                           }}
                         />
                       )}
                       
-                      {/* Traveling plane icon */}
-                      {!reducedMotion && (
-                        <motion.g
-                          initial={{ x: sriLankaCoords.x, y: sriLankaCoords.y }}
-                          animate={{
-                            x: [
-                              sriLankaCoords.x,
-                              ...Array.from({ length: 9 }, (_, i) => 
-                                getPointOnCurve(sriLankaCoords, destination.coordinates, (i + 1) / 10).x
-                              ),
-                              destination.coordinates.x
-                            ],
-                            y: [
-                              sriLankaCoords.y,
-                              ...Array.from({ length: 9 }, (_, i) => 
-                                getPointOnCurve(sriLankaCoords, destination.coordinates, (i + 1) / 10).y
-                              ),
-                              destination.coordinates.y
-                            ]
-                          }}
-                          transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: index * 0.7
-                          }}
-                        >
-                          <Plane
-                            size={14}
-                            className="text-primary drop-shadow-sm"
-                            style={{ transform: "translate(-7px, -7px)" }}
-                          />
-                        </motion.g>
+                      {/* Static path for reduced motion */}
+                      {reducedMotion && (
+                        <path
+                          d={pathData}
+                          fill="none"
+                          stroke={destination.color}
+                          strokeWidth="2"
+                          strokeDasharray="5 5"
+                          strokeLinecap="round"
+                          strokeOpacity="0.6"
+                        />
                       )}
                     </g>
                   );
                 })}
 
-                {/* Destination markers */}
+                {/* Smooth airplane animations */}
+                {!reducedMotion && destinations.map((destination, index) => {
+                  const pathLength = calculatePathLength(sriLankaCoords, destination.coordinates);
+                  // Calculate consistent speed (pixels per second)
+                  const speed = 50; // pixels per second
+                  const duration = pathLength / speed;
+                  
+                  return (
+                    <motion.g
+                      key={`plane-${destination.slug}`}
+                      style={{
+                        offsetPath: `path('${generateCurvedPath(sriLankaCoords, destination.coordinates)}')`,
+                        offsetDistance: "0%"
+                      }}
+                    >
+                      <motion.g
+                        animate={{
+                          offsetDistance: ["0%", "100%"]
+                        }}
+                        transition={{
+                          duration: duration,
+                          repeat: Infinity,
+                          ease: "linear",
+                          delay: index * 1.2
+                        }}
+                        style={{
+                          offsetPath: `path('${generateCurvedPath(sriLankaCoords, destination.coordinates)}')`,
+                        }}
+                      >
+                        <motion.circle
+                          r="3"
+                          fill={destination.color}
+                          className="drop-shadow-sm"
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0.8, 1, 0.8]
+                          }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        />
+                        <motion.g
+                          style={{ transform: "translate(-8px, -8px)" }}
+                          animate={{
+                            rotate: [0, 5, -5, 0]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <Plane
+                            size={16}
+                            className="text-foreground"
+                            style={{
+                              filter: "drop-shadow(1px 1px 2px rgba(0,0,0,0.3))",
+                              fill: destination.color
+                            }}
+                          />
+                        </motion.g>
+                      </motion.g>
+                    </motion.g>
+                  );
+                })}
+
+                {/* Alternative fallback airplane animation for browsers that don't support offset-path */}
+                {!reducedMotion && destinations.map((destination, index) => {
+                  const pathLength = calculatePathLength(sriLankaCoords, destination.coordinates);
+                  const speed = 50;
+                  const duration = pathLength / speed;
+                  
+                  return (
+                    <motion.g
+                      key={`plane-fallback-${destination.slug}`}
+                      className="airplane-fallback"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.5 }}
+                    >
+                      <motion.g
+                        animate={{
+                          x: [
+                            sriLankaCoords.x,
+                            ...Array.from({ length: 19 }, (_, i) => 
+                              getPointOnCurve(sriLankaCoords, destination.coordinates, (i + 1) / 20).x
+                            ),
+                            destination.coordinates.x
+                          ],
+                          y: [
+                            sriLankaCoords.y,
+                            ...Array.from({ length: 19 }, (_, i) => 
+                              getPointOnCurve(sriLankaCoords, destination.coordinates, (i + 1) / 20).y
+                            ),
+                            destination.coordinates.y
+                          ]
+                        }}
+                        transition={{
+                          duration: duration,
+                          repeat: Infinity,
+                          ease: "linear",
+                          delay: index * 1.2
+                        }}
+                        style={{ willChange: "transform" }}
+                      >
+                        <motion.circle
+                          r="3"
+                          fill={destination.color}
+                          className="drop-shadow-sm"
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0.8, 1, 0.8]
+                          }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        />
+                        <motion.g
+                          style={{ transform: "translate(-8px, -8px)" }}
+                          animate={{
+                            rotate: [0, 5, -5, 0]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <Plane
+                            size={16}
+                            className="text-foreground"
+                            style={{
+                              filter: "drop-shadow(1px 1px 2px rgba(0,0,0,0.3))",
+                              fill: destination.color
+                            }}
+                          />
+                        </motion.g>
+                      </motion.g>
+                    </motion.g>
+                  );
+                })}
+
+                {/* Destination markers with labels */}
                 {destinations.map((destination, index) => (
                   <g key={`marker-${destination.slug}`}>
                     <motion.circle
@@ -241,7 +370,24 @@ const DestinationHighlightsSection = () => {
                       onMouseLeave={() => setHoveredDestination(null)}  
                     />
                     
-                    {/* Tooltip on hover */}
+                    {/* Country name label */}
+                    <motion.text
+                      x={destination.coordinates.x + destination.labelOffset.x}
+                      y={destination.coordinates.y + destination.labelOffset.y}
+                      textAnchor="middle"
+                      className="text-sm font-semibold fill-current text-foreground drop-shadow-sm pointer-events-none select-none"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: 1.4 + index * 0.2 }}
+                      style={{
+                        filter: "drop-shadow(1px 1px 2px rgba(0,0,0,0.3))",
+                        WebkitTextStroke: "0.5px hsl(var(--background))"
+                      }}
+                    >
+                      {destination.name}
+                    </motion.text>
+
+                    {/* Enhanced tooltip on hover */}
                     {hoveredDestination === destination.slug && (
                       <motion.g
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -250,30 +396,38 @@ const DestinationHighlightsSection = () => {
                         transition={{ duration: 0.2 }}
                       >
                         <rect
-                          x={destination.coordinates.x - 40}
-                          y={destination.coordinates.y - 50}
-                          width="80"
-                          height="30"
-                          rx="6"
+                          x={destination.coordinates.x - 60}
+                          y={destination.coordinates.y - 70}
+                          width="120"
+                          height="45"
+                          rx="8"
                           fill="hsl(var(--popover))"
                           stroke="hsl(var(--border))"
                           strokeWidth="1"
-                          className="drop-shadow-md"
+                          className="drop-shadow-lg"
                         />
                         <text
                           x={destination.coordinates.x}
-                          y={destination.coordinates.y - 30}
+                          y={destination.coordinates.y - 55}
                           textAnchor="middle"
-                          className="text-sm font-medium fill-current text-popover-foreground"
+                          className="text-xs font-medium fill-current text-popover-foreground"
                         >
-                          {destination.name}
+                          {destination.roles[0]}
+                        </text>
+                        <text
+                          x={destination.coordinates.x}
+                          y={destination.coordinates.y - 42}
+                          textAnchor="middle"
+                          className="text-xs fill-current text-muted-foreground"
+                        >
+                          {destination.deploymentTime}
                         </text>
                       </motion.g>
                     )}  
                   </g>
                 ))}
 
-                {/* Sri Lanka origin marker with pulsing halo */}
+                {/* Sri Lanka origin marker with label */}
                 <g>
                   {!reducedMotion && (
                     <motion.circle
@@ -308,61 +462,21 @@ const DestinationHighlightsSection = () => {
                     transition={{ duration: 0.6, delay: 1 }}
                   />
                   
-                  <text
+                  <motion.text
                     x={sriLankaCoords.x}
-                    y={sriLankaCoords.y + 30}
+                    y={sriLankaCoords.y + 35}
                     textAnchor="middle"
                     className="text-sm font-semibold fill-current text-foreground drop-shadow-sm"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 1.2 }}
+                    style={{
+                      filter: "drop-shadow(1px 1px 2px rgba(0,0,0,0.3))",
+                      WebkitTextStroke: "0.5px hsl(var(--background))"
+                    }}
                   >
                     Sri Lanka
-                  </text>
-                </g>
-
-                {/* Legend */}
-                <g className="legend">
-                  <rect
-                    x="1400"
-                    y="20" 
-                    width="180"
-                    height="120"
-                    rx="10"
-                    fill="hsl(var(--card) / 0.95)"
-                    stroke="hsl(var(--border))"
-                    strokeWidth="1"
-                    className="drop-shadow-sm"
-                  />
-                  <text
-                    x="1490"
-                    y="45"
-                    textAnchor="middle"
-                    className="text-sm font-semibold fill-current text-card-foreground"
-                  >
-                    Deployment Routes
-                  </text>
-                  
-                  {destinations.map((destination, index) => (
-                    <g key={`legend-${destination.slug}`}>
-                      <circle
-                        cx="1420"
-                        cy={70 + index * 22}
-                        r="5"
-                        fill={destination.color}
-                      />
-                      <text
-                        x="1435"
-                        y={76 + index * 22}
-                        className="text-xs fill-current text-card-foreground cursor-pointer"
-                        role="button"
-                        tabIndex={0}
-                        onMouseEnter={() => setHoveredDestination(destination.slug)}
-                        onMouseLeave={() => setHoveredDestination(null)}
-                        onFocus={() => setHoveredDestination(destination.slug)}
-                        onBlur={() => setHoveredDestination(null)}
-                      >
-                        {destination.name}
-                      </text>
-                    </g>
-                  ))}
+                  </motion.text>
                 </g>
               </svg>
             </div>
@@ -372,7 +486,7 @@ const DestinationHighlightsSection = () => {
           </figure>
         </motion.div>
 
-        {/* Destination Cards - rest of the component remains the same */}
+        {/* Destination Cards */}
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
           {destinations.map((destination, index) => (
             <motion.div
