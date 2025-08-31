@@ -18,6 +18,7 @@ const UpcomingIntakesSection = () => {
       skills: ["Mason", "Carpenter", "Steel Fixer"],
       certification: "Gov. Certified",
       // gradient: "from-orange-500/20 to-red-500/20"
+      gradient: "from-yellow-500/10 to-yellow-500/5"
     },
     { 
       date: "Feb 1, 2025", 
@@ -32,6 +33,7 @@ const UpcomingIntakesSection = () => {
       skills: ["Hotel Service", "Restaurant Operations", "Guest Relations"],
       certification: "Industry Certified",
       // gradient: "from-blue-500/20 to-cyan-500/20"
+      gradient: "from-yellow-500/10 to-yellow-500/5"
     },
     { 
       date: "Feb 20, 2025", 
@@ -46,6 +48,7 @@ const UpcomingIntakesSection = () => {
       skills: ["Greenhouse Technology", "Organic Farming", "Irrigation Systems"],
       certification: "Skills Certified",
       // gradient: "from-green-500/20 to-emerald-500/20"
+      gradient: "from-yellow-500/10 to-yellow-500/5"
     },
     { 
       date: "Mar 5, 2025", 
@@ -60,6 +63,7 @@ const UpcomingIntakesSection = () => {
       skills: ["Welding", "Electrical Systems", "Plumbing"],
       certification: "Trade Certified",
       // gradient: "from-purple-500/20 to-indigo-500/20"
+      gradient: "from-yellow-500/10 to-yellow-500/5"
     }
   ];
 
@@ -120,8 +124,8 @@ const UpcomingIntakesSection = () => {
             >
               <Card className="hover-lift h-full overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300">
                 {/* Header with Gradient Background */}
-                {/* <div className={`relative p-6 pb-2 border-b border-gray-200 bg-gradient-to-r ${intake.gradient}`}> */}
-                <div className={`relative p-6 pb-2 border-b border-gray-200 bg-gradient-to-r`}>
+                <div className={`relative p-6 pb-2 border-b border-gray-200 bg-gradient-to-r ${intake.gradient}`}>
+                {/* <div className={`relative p-6 pb-2 border-b border-gray-200 bg-gradient-to-r`}> */}
                   <div className="flex items-start justify-between">
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
