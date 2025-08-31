@@ -188,9 +188,9 @@ const FeaturedProgramsSection = () => {
                 </CardHeader>
                 
                 <CardContent className="pt-0">
-                  <div className="space-y-3 mb-4">
+                  <div className="space-y-3 mt-4 mb-4">
                     <motion.div 
-                      className="flex items-center justify-between text-sm text-muted-foreground bg-muted/50 rounded-lg p-2"
+                      className="flex items-center justify-between text-sm text-muted-foreground rounded-lg"
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ 
@@ -207,7 +207,7 @@ const FeaturedProgramsSection = () => {
                     </motion.div>
                     
                     <motion.div 
-                      className="flex items-center justify-between text-sm text-muted-foreground bg-muted/50 rounded-lg p-2"
+                      className="flex items-center justify-between text-sm text-muted-foreground rounded-lg"
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ 

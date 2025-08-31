@@ -16,6 +16,7 @@ const HeaderSection = () => {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "For Employers", href: "/employers" },
+    { name: "For Agencies", href: "/agencies" },
     { name: "Courses", hasDropdown: true },
     { name: "Destinations", hasDropdown: true },
     // { name: "Accreditation", href: "/accreditation" },

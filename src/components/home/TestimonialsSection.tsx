@@ -70,8 +70,9 @@ const TestimonialsSection = () => {
     <section className="py-24 bg-gradient-to-br from-primary/5 via-background to-secondary/5 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-16 fade-in-up animate">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            What Our <span className="gradient-text">Clients Say</span>
+          <h2 className="text-4xl md:text-4xl font-bold text-foreground mb-6">
+            {/* What Our <span className="gradient-text">Clients Say</span> */}
+            What Our <span className="">Clients Say</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Don't just take our word for it. Here's what our valued clients have to say about their 
