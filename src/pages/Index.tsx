@@ -34,9 +34,9 @@ const Index = () => {
       <SuccessStoriesSection />
       <AccreditationSection />
       <UpcomingIntakesSection />
-      <TestimonialsSection />
       <NewsSection />
       <FAQSection />
+      <TestimonialsSection />
       <CTABannerSection />
       <ContactFormSection />
       <FooterSection />
