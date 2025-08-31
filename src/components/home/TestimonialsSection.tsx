@@ -4,56 +4,57 @@ import { useState, useEffect } from "react";
 const TestimonialsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  const testimonials = [
-    {
-      name: "Rajesh Mendis",
-      position: "CEO, Lanka Industries Ltd",
-      company: "Manufacturing",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      rating: 5,
-      text: "CSTI Bureau transformed our operations completely. Their strategic consulting helped us increase efficiency by 40% and reduce costs by 25%. The team's expertise in local market dynamics combined with international best practices made all the difference."
-    },
-    {
-      name: "Priya Wickramasinghe",
-      position: "HR Director, Ceylon Bank",
-      company: "Banking & Finance",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
-      rating: 5,
-      text: "The leadership development program exceeded our expectations. Our management team's performance improved significantly, and the practical approach to training made the learning experience engaging and effective. Highly recommended!"
-    },
-    {
-      name: "Mahesh Fernando",
-      position: "Managing Director, Tech Solutions Lanka",
-      company: "Information Technology",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      rating: 5,
-      text: "Working with CSTI Bureau was a game-changer for our digital transformation journey. Their consultants understood our challenges and provided tailored solutions that delivered measurable results within months."
-    },
-    {
-      name: "Samantha Perera",
-      position: "Operations Manager, Ceylon Export Company",
-      company: "Export & Trade",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=face",
-      rating: 5,
-      text: "The quality management system implementation by CSTI Bureau helped us achieve ISO certification and significantly improved our export capabilities. Their professional approach and attention to detail were impressive."
-    },
-    {
-      name: "Nuwan Silva",
-      position: "Founder, Green Energy Solutions",
-      company: "Renewable Energy",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&h=150&fit=crop&crop=face",
-      rating: 5,
-      text: "As a startup, we needed strategic guidance to scale effectively. CSTI Bureau's business consulting services provided us with a clear roadmap for growth. We've tripled our revenue since implementing their recommendations."
-    },
-    {
-      name: "Sadun Silva",
-      position: "Founder, Green Tech Solutions",
-      company: "Software Solutions",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      rating: 5,
-      text: "As a startup, we needed strategic guidance to scale effectively. CSTI Bureau's business consulting services provided us with a clear roadmap for growth. We've tripled our revenue since implementing their recommendations."
-    }
-  ];
+const testimonials = [
+  {
+    name: "David Cohen",
+    position: "Director of Recruitment",
+    company: "AgriTech Employers Association, Israel",
+    image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=150&h=150&fit=crop&crop=face",
+    rating: 5,
+    text: "We have worked with CSTI Bureau for several years to recruit skilled farm workers. Their trainees arrive well-prepared, disciplined, and knowledgeable in modern agriculture practices, making them valuable assets to our industry."
+  },
+  {
+    name: "Ahmed Al-Mansoor",
+    position: "HR Director",
+    company: "Gulf Hospitality Group, UAE",
+    image: "https://usercontent.one/wp/www.adhrb.org/wp-content/uploads/2023/12/201904mena_uae_-1169x800.jpg?media=1702831202",
+    rating: 5,
+    text: "CSTI Bureau consistently provides us with professionally trained hospitality staff. Their graduates understand customer service, adapt quickly to our work culture, and maintain the highest standards of professionalism."
+  },
+  {
+    name: "Jonathan Weber",
+    position: "Operations Manager",
+    company: "EuroBuild Constructions, Germany",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
+    rating: 5,
+    text: "The construction workers sourced through CSTI Bureau are skilled, safety-conscious, and hardworking. They meet European standards and have proven to be reliable in our large-scale infrastructure projects."
+  },
+  {
+    name: "Fatima Al-Khaled",
+    position: "Recruitment Head",
+    company: "Middle East Agro Group, Saudi Arabia",
+    image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=150&h=150&fit=crop&crop=face",
+    rating: 5,
+    text: "We are extremely satisfied with the agricultural trainees from CSTI Bureau. They are not only technically skilled but also punctual and committed, which makes them stand out in the Gulf market."
+  },
+  {
+    name: "Luca Rossi",
+    position: "Training & Development Manager",
+    company: "Mediterranean Resorts, Italy",
+    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+    rating: 5,
+    text: "CSTI Bureau has been a reliable partner in supplying trained hospitality staff. Their candidates arrive with strong communication skills, a service mindset, and the ability to handle international guests with professionalism."
+  },
+  {
+    name: "Peter Johansson",
+    position: "HR Partner",
+    company: "Nordic Agro Solutions, Denmark",
+    image: "https://liu.se/-/media/employeeimages/71/employee_image_petjo71.jpeg?as=1&w=300&h=300&cr=1&crw=300&crh=300&bc=%23ffffff&hash=C4E87126BD992A479EC2562E365ACA54",
+    rating: 5,
+    text: "Our collaboration with CSTI Bureau has been excellent. The Sri Lankan workers they provide are hardworking, quick learners, and integrate seamlessly into our agricultural teams across Denmark."
+  }
+];
+
 
   // Auto-rotate testimonials (2 at a time)
   useEffect(() => {
