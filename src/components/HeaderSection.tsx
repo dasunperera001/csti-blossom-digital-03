@@ -128,8 +128,8 @@ const HeaderSection = () => {
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className={`flex items-center justify-between transition-all duration-300 ${
-            isScrolled ? 'min-h-20 pt-8 pb-4' : 'h-20 pt-8 pb-8'
+          <div className={`flex items-center justify-between transition-all duration-300 pt-4 pb-4${
+            isScrolled ? 'min-h-20 pt-6 md:pt-4 pb-4' : 'h-20 pt-4 pb-4'
           }`}>
             
             {/* Logo */}
