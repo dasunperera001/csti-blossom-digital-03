@@ -4,18 +4,19 @@ import HeroSection from "@/components/home/HeroSection";
 import TrustBarSection from "@/components/home/TrustBarSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
 import FeaturedProgramsSection from "@/components/home/FeaturedProgramsSection";
+import FeaturedProgramsSection2 from "@/components/home/NewFeaturedProgramsSection";
 import DestinationHighlightsSection from "@/components/home/DestinationHighlightsSection";
 import EmployerBenefitsSection from "@/components/home/EmployerBenefitsSection";
 import SuccessStoriesSection from "@/components/home/SuccessStoriesSection";
 import AccreditationSection from "@/components/home/AccreditationSection";
 import UpcomingIntakesSection from "@/components/home/UpcomingIntakesSection";
-import ResourcesSection from "@/components/home/ResourcesSection";
 import NewsSection from "@/components/home/NewsSection";
 import FAQSection from "@/components/home/FAQSection";
 import CTABannerSection from "@/components/home/CTABannerSection";
 import ContactFormSection from "@/components/home/ContactFormSection";
 import VideoModal from "@/components/home/VideoModal";
 import { useState } from "react";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
 
 const Index = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -27,12 +28,13 @@ const Index = () => {
       <TrustBarSection />
       <HowItWorksSection />
       <FeaturedProgramsSection />
+      {/* <FeaturedProgramsSection2 /> */}
       <DestinationHighlightsSection />
       <EmployerBenefitsSection />
       <SuccessStoriesSection />
       <AccreditationSection />
       <UpcomingIntakesSection />
-      <ResourcesSection />
+      <TestimonialsSection />
       <NewsSection />
       <FAQSection />
       <CTABannerSection />

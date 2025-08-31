@@ -21,7 +21,7 @@ const NewsSection = () => {
       title: "New Training Facility Opens in Colombo",
       date: "Dec 5, 2024",
       excerpt: "State-of-the-art facility to accommodate growing demand...",
-      image: "https://lh3.googleusercontent.com/p/AF1QipM1Sy3wHBNuJlYRfmgeFqirPss5S9gl3ohZbcap=s680-w680-h510-rw"
+      image: "https://mgt.sjp.ac.lk/bec/wp-content/uploads/2017/09/1-Featured-Image.jpg"
     }
   ];
 
